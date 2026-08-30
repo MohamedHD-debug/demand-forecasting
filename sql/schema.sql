@@ -36,3 +36,9 @@ create table fact_sales (
     store_id int references store(id),
     date_id int references dim_date(id)
 );
+
+CREATE INDEX idx_fact_sales_item_id ON fact_sales(item_id);
+CREATE INDEX idx_fact_sales_store_id ON fact_sales(store_id);
+CREATE INDEX idx_fact_sales_date_id ON fact_sales(date_id);
+CREATE INDEX idx_price_item_id ON price(item_id);
+CREATE INDEX idx_price_store_id ON price(store_id);
