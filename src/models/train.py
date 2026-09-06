@@ -10,14 +10,13 @@ def prepare_features(df: pd.DataFrame, features: list[str], cat_features: list[s
     return X
 
 
-def train_lgbm(X_train: pd.DataFrame, y_train: pd.Series, cat_features: list[str],
-                alpha: float = 0.63, n_estimators: int = 100, random_state: int = 42) -> lgb.LGBMRegressor:
-    """Entraîne le modèle LightGBM avec objectif quantile (correction du biais Q4)."""
+def train_lgbm(
+    X_train, y_train, cat_features, alpha=0.63, n_estimators=100, random_state=42, objective='quantile',):
     model = lgb.LGBMRegressor(
         n_estimators=n_estimators,
         random_state=random_state,
-        objective='quantile',
-        alpha=alpha
+        objective=objective,
+        alpha=alpha,
     )
     model.fit(X_train, y_train, categorical_feature=cat_features)
     return model
